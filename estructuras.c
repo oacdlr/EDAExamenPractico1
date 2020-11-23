@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "estructuras.h"
+#include "muestras.h"
 
 Cola *crearCola(){
     Cola *nuevaCola;
@@ -50,15 +51,16 @@ Nodo borrar(Cola *cola){
     return dato;
 }
 void listar(Cola cola){
+    int i=1;
     Nodo *q=cola.h;
     if (colaVacia(cola))
         printf("\nNo hay datos en la fila...\n");
     else
 	do{
-		printf("%d\n",q->info.clave);
-		printf("%s\n",q->info.nombre);
-		printf("%s\n",q->info.departamento);		
+        printf("\n%d\n",i);
+		listar_muestra(q->info);
 		q=q->sig;
+		i++;
     }while(q!=NULL);
     printf("\n");
 }
@@ -70,4 +72,26 @@ void inicializarCola(Cola *cola){
    }
    //INICIALIZA APUNTADORES COLA
     printf("Cola vacía...");
+}
+void muestras_analizar(Cola cola, int aleatorio){
+    int i=1;
+    Nodo *q=cola.h;
+    if (aleatorio<=1)
+        printf("\nNo hay datos en la por analizar...\n");
+    else
+    {
+        do{
+                if(i!=aleatorio)
+                {
+                   printf("\n%d\n",i);
+                   listar_muestra(q->info);
+                   q=q->sig;
+                   i++;
+                }
+                else
+                    q=NULL;
+
+        }while(q!=NULL);
+        printf("\n");
+    }
 }

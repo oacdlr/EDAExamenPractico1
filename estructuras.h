@@ -1,10 +1,6 @@
 #ifndef ESTRUCTURAS_H_INCLUDED
 #define ESTRUCTURAS_H_INCLUDED
-typedef struct{
-	int clave;
-	char *nombre;
-	char *departamento;
-}Muestra;
+#include "muestras.h"
 typedef struct nodo{
     Muestra info;
     struct nodo *sig; //APUNTADOR AL SIG NODO DE LA cola
@@ -27,8 +23,6 @@ void inicializarCola(Cola *cola);
 void Colar(Cola cola);
 void listar(Cola cola);
 //funciones stack
+void muestras_analizar(Cola cola, int aleatorio);
 
-
-
-
-#endif
+#endif // ESTRUCTURAS_H_INCLUDED
