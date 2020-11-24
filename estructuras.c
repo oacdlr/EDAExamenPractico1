@@ -5,7 +5,7 @@
 
 Cola *crearCola(){
     Cola *nuevaCola;
-    //CREACIÓN DINÁMICA DE LA ESTRUCTURA COLA
+    //CREACI?N DIN?MICA DE LA ESTRUCTURA COLA
     nuevaCola=(Cola *)malloc(sizeof(Cola));
     if (nuevaCola==NULL){
         printf("Error: Espacio insuficiente...");
@@ -71,22 +71,20 @@ void inicializarCola(Cola *cola){
 
    }
    //INICIALIZA APUNTADORES COLA
-    printf("Cola vacía...");
+    printf("Cola vac?a...");
 }
 void muestras_analizar(Cola cola, int aleatorio){
     int i=1;
     Nodo *q=cola.h;
     if (aleatorio<=1)
         printf("\nNo hay datos en la por analizar...\n");
-    else
-    {
+    else{
         do{
-                if(i!=aleatorio)
-                {
-                   printf("\n%d\n",i);
-                   listar_muestra(q->info);
-                   q=q->sig;
-                   i++;
+            if(i!=aleatorio){
+                printf("\n%d\n",i);
+                listar_muestra(q->info);
+                q=q->sig;
+                i++;
                 }
                 else
                     q=NULL;
@@ -94,4 +92,46 @@ void muestras_analizar(Cola cola, int aleatorio){
         }while(q!=NULL);
         printf("\n");
     }
+}
+
+///////////////////////////
+///////////////////////////
+stack *crearPila(int n){
+    stack *nuevaPila;
+    nuevaPila = (stack *)malloc(1*sizeof(stack)); 
+    nuevaPila->arr = (Muestra *)calloc(n , sizeof(Muestra));
+    nuevaPila->tope = -1;
+    nuevaPila->max = n;
+}
+int pilaLLena(stack *pila){
+    return !(pila->tope < pila->max-1);
+}
+
+void pushPila(Muestra dato,stack *pila){
+    pila->tope ++;
+    pila->arr[pila->tope]=dato;
+    //printf("\nMuestra = %s \n",pila->arr[pila->tope].nombre);
+}
+void listarPila(stack *pila){
+    int i;
+    for (i= pila->tope; i >= 0; i--){
+        printf("\nMuestra[%i]...", i);
+    	listar_muestra(pila->arr[i]);	
+	}
+}
+int pilaVacia(stack *pila){
+    return (pila->tope == -1);
+}
+Muestra popPila(stack *pila){
+    Muestra aux = pila->arr[pila->tope];
+    pila->tope --;
+    return aux;
+}
+void inicializarPila(stack *pila){
+    pila->tope = -1;
+}
+void liberaMamoriaCola(stack *pila){
+    free(pila->arr);
+    free(pila);
+    pila = NULL;
 }

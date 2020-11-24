@@ -5,7 +5,7 @@
 #include "cola_c_din.h"
 Colac *crearColac(){
     Colac *nuevaCola;
-    //CREACIÓN DINÁMICA DE LA ESTRUCTURA COLA
+    //CREACI?N DIN?MICA DE LA ESTRUCTURA COLA
     nuevaCola=(Colac *)malloc(sizeof(Colac));
     if (nuevaCola==NULL){
         printf("Error: Espacio insuficiente...");
@@ -17,7 +17,7 @@ Colac *crearColac(){
     return nuevaCola;
 }
 void insertarc(Colac *cola,Muestra dato){
-    Nodo2 *nuevoNodo;
+    Nodo *nuevoNodo;
     //CREA EL NODO
     nuevoNodo=(Nodo *)malloc(1*sizeof(Nodo));
     if (nuevoNodo == NULL){
@@ -45,23 +45,26 @@ int colaVaciac(Colac cola){
 Muestra *borrarc(Colac *cola){
     Muestra *dato;
     dato =(Muestra *)malloc(1*sizeof(Muestra));
-    Nodo2 *q;
+    Nodo *q;
     q=cola->h;
     //BORRA EL ELEMENTO DE LA COLA
     if(!colaVaciac(*cola)){
-        if(cola->h==cola->t)
-            cola->h = cola->t = NULL;
-        else
-        cola->h =cola->h->sig;
-        cola->t->sig=cola->h;//actualiza la ligadura con H
-        *dato = q->info;//EXTRAE LA INFORMACIÓN
-        free(q);  //LIBERA LA MEMORIA
+        if(cola->h==cola->t){
+            cola->h=NULL;
+			cola->t=NULL;
+		}
+        else{
+        	cola->h =cola->h->sig;
+        	cola->t->sig=cola->h;//actualiza la ligadura con H
+    	}
+		*dato = q->info;//EXTRAE LA INFORMACI?N
+		free(q);  //LIBERA LA MEMORIA
         q=NULL;
     }
     return dato;
 }
 void listarc(Colac cola){
-   Nodo2 *q;//se crea la variable
+   Nodo *q;//se crea la variable
     if (colaVaciac(cola))
     printf("\nNo hay datos en la fila...\n");
     else{
@@ -77,7 +80,7 @@ void listarc(Colac cola){
 
 }
 void inicializarColac(Colac *cola){
-    Nodo2 *q=cola->h;
+    Nodo *q=cola->h;
    //LIBERA MEMORIA
    if(!colaVaciac(*cola)){
        cola->t->sig= NULL;

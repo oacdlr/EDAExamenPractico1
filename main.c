@@ -5,60 +5,76 @@
 #include "muestras.h"
 #include "cola_c_din.h"
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
-
+#define maxstack 20
 int main(int argc, char *argv[]) {
-    int aleatorio,respuesta,nmuestras,i;
+    int aleatorio,respuesta,nmuestras,nanaliz,i;
     Nodo aux;
     Muestra *unamuestra;
+    unamuestra=crear_muestra();
     Cola *cola;
     cola = crearCola();
     Colac *colac;
-
-
-
-	//FASE DE RECEPCIÓN DE MUESTRAS
-	nmuestras=0;
+	colac = crearColac();
+	stack *pila;
+	pila=crearPila(maxstack);
+	//FASE DE RECEPCI?N DE MUESTRAS
+	nmuestras=nanaliz=0;
 	srand (time(NULL));
-	aleatorio = rand() % 101;
-	if(aleatorio <=50)
-    {
-        do
-        {
-            printf("\nDesea llenar los datos de las muestras?Si no, presione el numero 4,\nencaso contrario, digite cualquier otro numero\n");
+while(1){
+    do{
+    	aleatorio = rand() % 101;
+    	if(aleatorio <=50){
+            printf("\nDesea llenar los datos de las muestras?Si no, presione el numero 4,\nEn caso contrario, digite cualquier otro numero\n");
             scanf("%d",&respuesta);
-            if(respuesta != 4)
-            {
+            if(respuesta != 4){
                 unamuestra=crear_muestra();
-                llenar_datos(unamuestra);
+				llenar_datos(unamuestra);
                 insertar(cola,*unamuestra);
                 listar(*cola);
                 nmuestras++;
             }
-        }while(respuesta !=4);
-        //FASE DE PROCESADO Y ANALISIS
-    colac = crearColac();
-    i=0;
-    //aleatorio = rand() % nmuestras+1;
-    aleatorio=3;
+    	}
+        else
+        	printf("No se genero la muestra(aleatorio = %d)\n",aleatorio);
+    }while(respuesta !=4);
+	    //FASE DE PROCESADO Y ANALISIS
+    listar(*cola);
+    aleatorio=rand()%nmuestras+1;
     printf("Numero de muestras a analizar y procesar: %d\n",aleatorio);
-    do
-    {
-        printf("\n*******************************\n");
-        printf("\nMuestras por analizar:\n");
-        muestras_analizar(*cola,aleatorio+1-i);
-        aux = borrar(cola);
-        Sleep(1000);
-        printf("\nAnalizando muestra : %d...\n",aux.info.clave);
-        insertarc(colac,aux.info);
-        listarc(*colac);
-        printf("\nMuestras por analizar:\n");
-        muestras_analizar(*cola,aleatorio-i);
-        i++;
-    }while(i!=aleatorio);
-listarc(*colac);
-    }
-    else
-        printf("No se genero la muestra(aleatorio = %d)",aleatorio);
-    return 0;
-
+    for(i=0;i<aleatorio;i++){
+	aux=borrar(cola);
+	insertarc(colac,aux.info);
+	nmuestras--;
+	nanaliz++;
+	}
+	printf("\nMuestras en Recepcion\n");
+	listar(*cola);
+    printf("\n*******************************\n");
+    printf("\nMuestras por analizar:\n");
+    listarc(*colac);
+    aleatorio=rand()%nanaliz+1;
+    printf("Analizando %d pruebas...\n",aleatorio);
+	for(i=0;i<aleatorio;i++){
+    	unamuestra=borrarc(colac);
+    	printf("\nAnalizando muestra : %d...\n",unamuestra->clave);
+		Sleep(1000);
+		printf("La muestra:");
+		listar_muestra(*unamuestra);
+		printf("Esta lista para entregar");
+		pushPila(*unamuestra,pila);
+	}
+	//FASE DE REPORTE Y ENTREGA
+	printf("\nMuestras Listas para Entragar...");
+	listarPila(pila);
+	aleatorio=rand()%(pila->tope+1);
+	printf("Entrgando %d muestras...\n",aleatorio);
+	for(i=0;i<aleatorio;i++){
+		*unamuestra=popPila(pila);
+    	printf("\nEntregando la muestra:%d de nombre %s al departamento %s\n",unamuestra->clave,unamuestra->nombre,unamuestra->departamento);
+		Sleep(1000);
+		printf("Muestras restantes:\n");
+		listarPila(pila);
+	}
+}
+	return 0;
 }
