@@ -114,6 +114,8 @@ void pushPila(Muestra dato,stack *pila){
 }
 void listarPila(stack *pila){
     int i;
+    if(pilaVacia(pila))
+    	printf("\nContenedor vacio\n");
     for (i= pila->tope; i >= 0; i--){
         printf("\nMuestra[%i]...", i);
     	listar_muestra(pila->arr[i]);	

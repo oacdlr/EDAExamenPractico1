@@ -6,7 +6,7 @@
 #include "cola_c_din.h"
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 #define maxstack 20
-int main(int argc, char *argv[]) {
+int main() {
     int aleatorio,respuesta,nmuestras,nanaliz,i;
     Nodo aux;
     Muestra *unamuestra;
@@ -37,10 +37,24 @@ while(1){
         else
         	printf("No se genero la muestra(aleatorio = %d)\n",aleatorio);
     }while(respuesta !=4);
+    printf("Desea ver el estado de cada contenedor?\n\t1)Si\t2)No");
+    scanf("%d",&respuesta);
+    if(respuesta==1){
+    	printf("Recibidos\n");
+    	listar(*cola);
+    	printf("Analizando\n");
+    	listarc(*colac);
+    	printf("Listos para entregar\n");
+    	listarPila(pila);
+		Sleep(2000);
+	}
 	    //FASE DE PROCESADO Y ANALISIS
+	printf("Muestras Recibidas:");
     listar(*cola);
+    if(nmuestras!=0){
     aleatorio=rand()%nmuestras+1;
     printf("Numero de muestras a analizar y procesar: %d\n",aleatorio);
+    Sleep(1000);
     for(i=0;i<aleatorio;i++){
 	aux=borrar(cola);
 	insertarc(colac,aux.info);
@@ -53,21 +67,25 @@ while(1){
     printf("\nMuestras por analizar:\n");
     listarc(*colac);
     aleatorio=rand()%nanaliz+1;
-    printf("Analizando %d pruebas...\n",aleatorio);
+    Sleep(2500);
+    printf("\nAnalizando %d pruebas...\n",aleatorio);
 	for(i=0;i<aleatorio;i++){
     	unamuestra=borrarc(colac);
     	printf("\nAnalizando muestra : %d...\n",unamuestra->clave);
-		Sleep(1000);
 		printf("La muestra:");
 		listar_muestra(*unamuestra);
 		printf("Esta lista para entregar");
+		Sleep(1500);
 		pushPila(*unamuestra,pila);
 	}
+	}
 	//FASE DE REPORTE Y ENTREGA
-	printf("\nMuestras Listas para Entragar...");
+	Sleep(1000);
+	printf("\nMuestras Listas para Entregar...");
 	listarPila(pila);
-	aleatorio=rand()%(pila->tope+1);
-	printf("Entrgando %d muestras...\n",aleatorio);
+	aleatorio=rand()%((pila->tope)+2);
+	printf("Entregando %d muestras...\n",aleatorio);
+	Sleep(1000);
 	for(i=0;i<aleatorio;i++){
 		*unamuestra=popPila(pila);
     	printf("\nEntregando la muestra:%d de nombre %s al departamento %s\n",unamuestra->clave,unamuestra->nombre,unamuestra->departamento);
