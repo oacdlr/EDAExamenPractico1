@@ -32,6 +32,7 @@ while(1){
                 insertar(cola,*unamuestra);
                 listar(*cola);
                 nmuestras++;
+                printf("Numero de muestras:%d\n",nmuestras);
             }
     	}
         else
@@ -57,6 +58,8 @@ while(1){
     Sleep(1000);
     for(i=0;i<aleatorio;i++){
 	aux=borrar(cola);
+	printf("Procesando la Muestra\n");
+	listar_muestra(aux.info);
 	insertarc(colac,aux.info);
 	nmuestras--;
 	nanaliz++;
