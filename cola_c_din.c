@@ -93,3 +93,14 @@ void inicializarColac(Colac *cola){
    //INICIALIZA APUNTADORES COLA
     printf("Cola vacia...");
 }
+void mostrar_contenedores(Cola *cola,Colac *colac,stack *pila)
+{
+    printf("\nMuestras en Recepcion:\n");
+	listar(*cola);
+    printf("\n*******************************\n");
+    printf("\nMuestras por analizar:\n");
+    listarc(*colac);
+    printf("\n*******************************\n");
+    printf("\nMuestras por entregar:\n");
+    listarPila(pila);
+}
