@@ -69,7 +69,7 @@ void listarc(Colac cola){
     printf("\nNo hay datos en la fila...\n");
     else{
             q=cola.h;//Se inicializa la variable q es punto por que se recibe una copia
-           // printf("\nMuestras analizadas :\n");
+            printf("\nMuestras analizadas :\n");
             do
             {
             listar_muestra(q->info);

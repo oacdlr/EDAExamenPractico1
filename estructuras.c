@@ -112,15 +112,6 @@ void pushPila(Muestra dato,stack *pila){
     pila->arr[pila->tope]=dato;
     //printf("\nMuestra = %s \n",pila->arr[pila->tope].nombre);
 }
-void listarPila(stack *pila){
-    int i;
-    if(pilaVacia(pila))
-    	printf("\nContenedor vacio\n");
-    for (i= pila->tope; i >= 0; i--){
-        printf("\nMuestra[%i]...", i);
-    	listar_muestra(pila->arr[i]);	
-	}
-}
 int pilaVacia(stack *pila){
     return (pila->tope == -1);
 }
@@ -128,6 +119,16 @@ Muestra popPila(stack *pila){
     Muestra aux = pila->arr[pila->tope];
     pila->tope --;
     return aux;
+}
+void listarPila(stack *pila){
+    int i;
+    if(pilaVacia(pila)){
+    	printf("Sin elementos en la pila\n");
+	}
+    for (i= pila->tope; i >= 0; i--){
+        printf("\nMuestra[%i]...", i);
+    	listar_muestra(pila->arr[i]);	
+	}
 }
 void inicializarPila(stack *pila){
     pila->tope = -1;

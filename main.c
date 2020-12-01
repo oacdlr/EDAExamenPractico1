@@ -24,12 +24,9 @@ while(1){
      printf("Desea ver el estado de cada contenedor?\n\t1)Si\t2)No");
         scanf("%d",&respuesta);
         if(respuesta==1){
-
             mostrar_contenedores(cola,colac,pila);
-
         }
     do{
-
     	aleatorio = rand() % 101;
     	if(aleatorio <=50){
             printf("\nDesea llenar los datos de las muestras?Si no, presione el numero 4,\nEn caso contrario, digite cualquier otro numero\n");
@@ -50,17 +47,12 @@ while(1){
     printf("Desea ver el estado de cada contenedor?\n\t1)Si\t2)No");
     scanf("%d",&respuesta);
     if(respuesta==1){
-
         mostrar_contenedores(cola,colac,pila);
-
     }
     i=0;
-    nanaliz=0;
-    aleatorio = rand() % nmuestras+1;
-    aleatorio=3;
+    aleatorio=rand()%nmuestras+1;
     printf("Numero de muestras a analizar y procesar: %d\n",aleatorio);
-    do
-    {
+    do{
         printf("\n*******************************\n");
         printf("\nMuestras por analizar:\n");
         muestras_analizar(*cola,aleatorio+1-i);
@@ -72,18 +64,17 @@ while(1){
         listarc(*colac);
         printf("\nMuestras por analizar:\n");
         muestras_analizar(*cola,aleatorio-i);
-        nanaliz++;
+        nmuestras--;
+		nanaliz++;
         i++;
     }while(i!=aleatorio);
     //FASE DE REPORTE Y ENTREGA
-        printf("Desea ver el estado de cada contenedor?\n\t1)Si\t2)No");
+    printf("Desea ver el estado de cada contenedor?\n\t1)Si\t2)No");
     scanf("%d",&respuesta);
     if(respuesta==1){
-
         mostrar_contenedores(cola,colac,pila);
-
     }
-    aleatorio=rand() % nanaliz+1;
+    aleatorio=rand()%nanaliz+1;
     printf("\ngggg\n");
     Sleep(2500);
     printf("\nApilando %d pruebas...\n",aleatorio);
@@ -95,12 +86,12 @@ while(1){
 		printf("\nEsta lista para entregar(esta en el contenedor para entregarse)\n");
 		Sleep(1000);
 		pushPila(*unamuestra,pila);
+		nanaliz--;
 	}
-
-
 	printf("\n//////////////////////////////////////////////////////////\n");
 	printf("\nMuestras Listas para Entregar...\n");
 	listarPila(pila);
+	aleatorio=rand()%(pila->tope+2);
 	printf("\nSe entregaran %d muestras...\n",aleatorio);
 	Sleep(1000);
 	for(i=0;i<aleatorio;i++){
