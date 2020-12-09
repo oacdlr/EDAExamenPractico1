@@ -41,7 +41,7 @@ while(1){
             }
     	}
         else
-        	printf("No se genero la muestra(aleatorio = %d)\n",aleatorio);
+        	printf("\nNo se genero la muestra(aleatorio = %d)",aleatorio);
     }while(respuesta !=4);
     //FASE DE PROCESADO Y ANALISIS
     printf("Desea ver el estado de cada contenedor?\n\t1)Si\t2)No");
@@ -75,7 +75,7 @@ while(1){
         mostrar_contenedores(cola,colac,pila);
     }
     aleatorio=rand()%nanaliz+1;
-    printf("\ngggg\n");
+    printf("\n///////////////////////////////////////////////////////////\n");
     Sleep(2500);
     printf("\nApilando %d pruebas...\n",aleatorio);
 	for(i=0;i<aleatorio;i++){
